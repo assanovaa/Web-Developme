@@ -1,0 +1,28 @@
+<p>product-details works!</p>
+
+<div *ngIf="product">
+<h3>{{ product.name }}</h3>
+<div class = "carousel">
+<input type="checkbox" class="tech"> 
+<div class="slide" slide="3" annot="this is my carousel">
+  <img [src] = "product.img" alt="Slide 3">
+</div>
+
+<input type="checkbox" class="tech">
+<div class="slide" slide="2" annot="reaally cool">
+  <img [src] = "product.img1" alt="Slide 2">
+</div>
+
+<input type="checkbox" class="tech">
+
+<div class="slide" slide="1" annot="Photos from kaspi.kz.">
+  <img [src] = "product.img2" alt="Slide 1">
+</div>
+ 
+<div class="counter" count="5"> / 3</div>
+
+</div>
+<h4>{{ product.price | currency }}</h4>
+<p>{{ product.description }}</p>
+<button type="button" (click)="addToCart(product)">Buy</button>
+</div>
