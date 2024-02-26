@@ -1,54 +1,77 @@
+<div class="filter">
 
-<div *ngFor="let product of products" class = "products">
-<h3>
-  <a [title]="product.name + ' details'"
-  [routerLink]="['/products', product.id]">
-    {{ product.name }}
-  </a>
-</h3>
-<div class="img">
-  <div class="carousel">
-
-    <input type="checkbox" class="tech"> 
-    <div class="slide" slide="1" annot="this is my carousel">
-      <img [src] = "product.img2" alt="Slide 3">
-    </div>
-  
-    <input type="checkbox" class="tech">
-    <div class="slide" slide="2" annot="reaally cool">
-      <img [src] = "product.img1" alt="Slide 2">
-    </div>
-  
-    <input type="checkbox" class="tech">
-  
-    <div class="slide" slide="3" annot="Photos from kaspi.kz. All things from kaspi. Kaspi everywhere!!!">
-      <img [src] = "product.img" alt="Slide 1">
-    </div>
-     
-   
-  </div>
+  <input type="text" placeholder="Search">
+  <select (change)="setFilteredItem($event)">
+    <option value="None"> No filter </option>
+    <option value="Electronics"> Electronics </option>
+    <option value="Cosmetics"> Cosmetics </option>
+    <option value="Books"> Books </option>
+    <option value="Notebooks"> Notebooks </option>
+  </select>
 </div>
 
-<div class="line"></div>
 
-<p *ngIf="product.description">
-  Description: {{ product.description }}
-</p>
-<p *ngIf="product.rating">
-  Rating: {{ product.rating }} ★
-</p>
-<p *ngIf="product.price">
-  Cost: {{ product.price | currency  }} 
-</p>
+<div *ngFor="let product of filteredItems" class = "products">
+      <h3>
+        <a [title]="product.name + ' details'"
+        [routerLink]="['/products', product.id]">
+          {{ product.name }}
+        </a>
+      </h3>
+      <div class="img">
+        <div class="carousel">
+  
+          <input type="checkbox" class="tech"> 
+          <div class="slide" slide="1" annot="this is my carousel">
+            <img [src] = "product.img2" alt="Slide 3">
+          </div>
+        
+          <input type="checkbox" class="tech">
+          <div class="slide" slide="2" annot="reaally cool">
+            <img [src] = "product.img1" alt="Slide 2">
+          </div>
+        
+          <input type="checkbox" class="tech">
+        
+          <div class="slide" slide="3" annot="Photos from kaspi.kz.">
+            <img [src] = "product.img" alt="Slide 1">
+          </div>
+           
+         
+        </div>
+      </div>
+      
+      <div class="line"></div>
+    
+      <!-- <p *ngIf="product.description">
+        Description: {{ product.description }}
+      </p> -->
+      <div class="rate-likes">
+        <p *ngIf="product.rating">
+          Rating: {{ product.rating }} ★
+        </p>
+        <p>
+          Likes: {{ product.likes }}
+        </p>        
+      </div>
+      <p *ngIf="product.price" style = "font-weight: 600; font-size: large;">
+        Cost: {{ product.price | currency  }} 
+      </p>
+      <div class="share-like">
+        <button type="button" (click)="share(product.url)">
+          Share
+        </button>        
+        <button type="button" (click)="incrementLikes(product.id)" class = "like">
+          ♥
+        </button>
+        <button class="delete-button" (click) = "deleteProduct(product.id)"><i class="fas fa-trash fa-0.5x" id = "trash"></i></button>
+      </div>
 
-<button type="button" (click)="share(product.url)">
-  Share
-</button>
-
-<app-product-alerts
-  [product]="product" 
-  (notify)="onNotify()">
-</app-product-alerts>
+      
+      <app-product-alerts
+        [product]="product" 
+        (notify)="onNotify()">
+      </app-product-alerts>
 </div>
 
 <!-- 
